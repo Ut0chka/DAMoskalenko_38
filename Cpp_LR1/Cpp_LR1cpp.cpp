@@ -7,21 +7,21 @@ int main()
 {
 	int const A = 1001;
 	int a[A];
-	//заполняем массив целыми числами
+	//fill array with integers
 	for (int i = 0; i < A; i++) {
 		a[i] = i;
 
 	}
 
-	a[0] = a[1] = 0; //ноль и единица не являются простыми числами
+	a[0] = a[1] = 0; //0 and 1 aren't prime numbers
 
 	for (int i = 2; i * i < A; i++)
 		if (a[i]) {
-			for (int j = i * i; j < A; j += i) //обнуляем все числа, кратные числу i
+			for (int j = i * i; j < A; j += i) //reset all the numbers that are multiples of the number "i"
 				a[j] = 0;
 		}
 
-	//выводим массив
+	//output array on console
 	for (int i = 0; i < A; i++)
 	{	
 		if (a[i]) 
