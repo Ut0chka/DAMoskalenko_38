@@ -3,33 +3,52 @@
 
 using namespace std;
 
+
+void fill(int* a, const int N);
+void func_for_prime(int* a, const int N);
+void print(int* a, const int N);
+
 int main() 
 {
-	const int A = 1001;
-	int prime[A];
+	const int N = 10;
+	int* a = new int[N];
+	fill(a, N);
+	func_for_prime(a, N);
+	print(a, N);
+	delete[] a;
 
+	
+	cin.get();
+}
+void fill(int* a, const int N) {
 	//fill array with integers
-	for (int i = 0; i < A; i++)
-		prime[i] = i;
-
-	//0 and 1 aren't prime numbers
-	prime[0] = prime[1] = 0; 
-
-	for (int i = 2; i * i < A; i++) 
+	for (int i = 0; i < N; i++)
 	{
-		if (prime[i]) 
+		a[i] = i;
+		//cout << a[i] << " ";
+	}
+}
+void func_for_prime(int* a, const int N)
+{
+	//0 and 1 aren't prime numbers
+	a[0] = a[1] = 0;
+	for (int i = 2; i * i < N; i++)
+	{
+		if (a[i])
 		{
 			//reset all the numbers that are multiples of the number "i"
-			for (int j = i * i; j < A; j += i) 
-				prime[j] = 0;
+			for (int j = i * i; j < N; j += i)
+				a[j] = 0;
 		}
 	}
+}
 
+void print(int* a, const int N)
+{
 	//output array on console
-	for (int i = 0; i < A; i++)
-	{	
-		if (prime[i])
-			cout << prime[i] << " ";
+	for (int i = 0; i < N; i++)
+	{
+		if (a[i])
+			cout << a[i] << " ";
 	}
-	cin.get();
 }
