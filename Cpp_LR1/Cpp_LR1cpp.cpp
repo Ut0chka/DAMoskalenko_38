@@ -3,30 +3,43 @@
 
 using namespace std;
 
-
+/*
+*fill array with integers
+* 
+* @param a array with integers
+* @param N constant
+*/
 void fill(int* a, const int N);
+/*
+*Eratosthenes algorithm
+* 
+* @param a array with integers
+* @param N constant
+*/
 void func_for_prime(int* a, const int N);
+/*
+*output array on console
+*
+* @param a array with prime numbers
+* @param N constant
+*/
 void print(int* a, const int N);
 
 int main() 
 {
-	const int N = 10;
+	const int N = 30;
 	int* a = new int[N];
 	fill(a, N);
 	func_for_prime(a, N);
 	print(a, N);
 	delete[] a;
 
-	
 	cin.get();
 }
 void fill(int* a, const int N) {
 	//fill array with integers
 	for (int i = 0; i < N; i++)
-	{
 		a[i] = i;
-		//cout << a[i] << " ";
-	}
 }
 void func_for_prime(int* a, const int N)
 {
