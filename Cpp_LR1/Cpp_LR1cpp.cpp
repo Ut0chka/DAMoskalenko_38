@@ -17,7 +17,7 @@ void fill(int* a, const int N);
 * @param a array with integers
 * @param N max number up to which need to find all prime numbers
 */
-void func_eratosthenes(int* a, const int N);
+void funcEratosthenes(int* a, const int N);
 
 /*
 *output array on console
@@ -37,7 +37,7 @@ int main()
 	const int N = 30;
 	int* a = new int[N];
 	fill(a, N);
-	func_eratosthenes(a, N);
+	funcEratosthenes(a, N);
 	print(a, N);
 	delete[] a;
 
@@ -49,7 +49,7 @@ void fill(int* a, const int N) {
 	for (int i = 0; i < N; i++)
 		a[i] = i;
 }
-void func_eratosthenes(int* a, const int N)
+void funcEratosthenes(int* a, const int N)
 {
 	//0 and 1 aren't prime numbers
 	a[0] = a[1] = 0;
