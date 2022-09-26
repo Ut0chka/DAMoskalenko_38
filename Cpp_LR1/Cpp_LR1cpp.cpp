@@ -34,7 +34,7 @@ void print(int* a, const int N);
 */
 int main() 
 {
-	int N = 30;
+	const int N = 30;
 	int* a = new int[N];
 	fill(a, N);
 	funcEratosthenes(a, N);
