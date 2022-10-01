@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <time.h>
 
 using namespace std;
 
@@ -7,6 +8,7 @@ using namespace std;
 *Allocate memory for a two-dimensional N*N array
 *
 * @param N the size of the array that the user enters
+* @return pointer to pointer to 2d array
 */
 int** memAlloc(const int N);
 
@@ -43,12 +45,12 @@ void symmetricMatrixSideDiagonal(int** a, const int N);
 void trianglePascal(int** a, const int N);
 
 /*
-*function to fill the array for playing sapper
+*function to fill the array for playing minesweeper
 *
 * @param **a array N*N
 * @param N the size of the array that the user enters
 */
-void sapper(int** a, const int N);
+void minesweeper(int** a, const int N);
 
 /*
 *function to display the resulting array on the console
@@ -59,6 +61,13 @@ void sapper(int** a, const int N);
 void print(int** a, const int N);
 
 /*
+*function for output of a string with an error
+*
+* @param string err string with an error
+*/
+void errors(const string err);
+
+/*
 *main function for declaring variables and calling functions, as well as the implementation of the switch
 *
 * @return returns 0 if the program completed successfully
@@ -67,21 +76,31 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	int N;
-	cout << "Введите размер двумерного массива N*N:\n";
-	cin >> N;
+	cout << "Enter the size of the two-dimensional array N*N:\n\
+-> ";
+	std::cin >> N;
+	if (std::cin.fail() || N <= 0) {
+		errors("Wrong array size!");
+		return 0;
+	}
 	cout << endl;
 	int** arr = memAlloc(N);
 	nullArr(arr, N);
-	while (true) {
-		cout << "Уважаемый пользователь, выберите действие:\n \
-	1.Очистить массив и заполнить его 0.\n \
-	2.Провести заполнение массива так, что бы он обладал свойством симметричности относительно главной диагонали.\n \
-	3.Провести заполнение массива так, что бы он обладал свойством симметричности относительно побочной диагонали.\n \
-	4.Провести заполнения массива так, что бы он являлся треугольником Паскаля.\n \
-	5.Провести заполнения массива для игры в сапера.\n \
-	6. Выход.\n";
+	bool flag = true;
+	while (flag) {
+		cout << "Dear User, choose an action:\n \
+	1.Clear the array and fill it with 0.\n \
+	2.Fill the array so that it has the property of symmetry with respect to the main diagonal.\n \
+	3.Fill the array so that it has the property of symmetry with respect to the side diagonal.\n \
+	4.To fill the array so that it is a Pascal triangle.\n \
+	5.To carry out the filling of the array for the minesweeper game.\n\
+	6. Output.\n \
+-> ";
 		int action;
-		cin >> action;
+		std::cin >> action;
+		if (std::cin.fail()) {
+			errors("Enter a number from 1 to 6!");
+		}
 		switch (action)
 		{
 		case 1:
@@ -100,20 +119,19 @@ int main()
 			print(arr, N);
 			break;
 		case 5:
-			sapper(arr, N);
+			minesweeper(arr, N);
 			print(arr, N);
 			break;
 		case 6:
-			goto breakAll; //exit from while loop
+			flag = false; //exit from while loop
 			break;
 		default:
-			cout << "Вы не ввели верное число(от 1 до 5)\n";
+			cout << "Enter a number from 1 to 6!\n";
 			break;
 		}
 	}
-breakAll:
-	puts("До новых встреч!");
-	cin.get();
+	cout << "See you later!";
+	std::cin.get();
 	return 0;
 }
 
@@ -135,30 +153,41 @@ void nullArr(int** a, const int N)
 		}
 		cout << endl;
 	}
+	cout << endl;
 }
 
 void symmetricMatrixMainDiagonal(int** a, const int N)
 {
+	srand(time(0));
 	for (int i = 0; i < N; i++) {
-		a[i] = new int[N];
+		for (int j = 0; j < N; j++) {
+			a[i][j] = rand() % 10;
+		}
+	}
+	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			if (i == j)
 				a[i][j] = 1;
 			else
-				a[i][j] = 0;
+				a[i][j] = a[j][i];
 		}
 	}
 }
 
 void symmetricMatrixSideDiagonal(int** a, const int N)
 {
+	srand(time(0));
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			a[i][j] = rand() % 10;
+		}
+	}
 	for (int i = N - 1; i >= 0; i--) {
-		a[i] = new int[N];
 		for (int j = N - 1; j >= 0; j--) {
 			if (i + j == N - 1)
 				a[i][j] = 1;
 			else
-				a[i][j] = 0;
+				a[i][j] = a[N-1-j][N-1-i];
 		}
 	}
 }
@@ -166,11 +195,12 @@ void symmetricMatrixSideDiagonal(int** a, const int N)
 void trianglePascal(int** a, const int N)
 {
 	a[0][0] = 1;
+	if (N == 1) return;
 	a[1][0] = 1;
 	a[1][1] = 1;
 	for (int i = 2; i < N; i++) {
 		for (int j = 0; j < N + 1; j++) {
-			if ((j == 0) || (j == N + 1))
+			if ((j == 0))
 				a[i][j] = 1;
 			else
 				a[i][j] = a[i - 1][j - 1] + a[i - 1][j];
@@ -178,7 +208,7 @@ void trianglePascal(int** a, const int N)
 	}
 }
 
-void sapper(int** a, const int N)
+void minesweeper(int** a, const int N)
 {
 	srand(time(0));
 	int bombs = 0;
@@ -239,4 +269,12 @@ void print(int** a, const int N)
 		}
 		cout << endl;
 	}
+	cout << endl;
+}
+
+void errors(const string err)
+{
+	cout << "Error: " << err << endl;
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
 }
