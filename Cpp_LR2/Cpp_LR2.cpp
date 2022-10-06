@@ -74,7 +74,6 @@ void errors(const string err);
 */
 int main()
 {
-	setlocale(LC_ALL, "Russian");
 	int N;
 	cout << "Enter the size of the two-dimensional array N*N:\n\
 -> ";
@@ -200,7 +199,7 @@ void trianglePascal(int** a, const int N)
 	a[1][1] = 1;
 	for (int i = 2; i < N; i++) {
 		for (int j = 0; j < N + 1; j++) {
-			if ((j == 0))
+			if (j == 0)
 				a[i][j] = 1;
 			else
 				a[i][j] = a[i - 1][j - 1] + a[i - 1][j];
@@ -220,11 +219,7 @@ void minesweeper(int** a, const int N)
 		bombs = 10;
 	else if (N > 10)
 		bombs = 25;
-	else
-	{
-		cout << "Ошибочка!";
-		return;
-	}
+
 	//arrangement bomb
 	for (int i = 0; i <= bombs; i++)
 	{
