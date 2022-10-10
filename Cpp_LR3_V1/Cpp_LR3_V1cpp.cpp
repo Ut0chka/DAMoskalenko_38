@@ -6,7 +6,7 @@
 using namespace std;
 
 /*
-* Struct to contain year, month and day
+* A structure that contains the day month and year of the worker's birthday
 */
 struct Birth
 {
@@ -16,7 +16,7 @@ struct Birth
 };
 
 /*
- * Struct to contain info about employee
+ * A structure to contain info about worker
  */
 struct Worker
 {
@@ -121,6 +121,10 @@ int main()
 	int year;
 	bool flag = true;
 	cin >> N;
+	if (cin.fail() || N < 0 || N > 100) {
+		errors("Wrong number!");
+		return 0;
+	}
 	vector<Worker> workers = fillWorkers(N);
 	printWorkers(workers);
 
@@ -141,7 +145,7 @@ int main()
 		{
 		case 1:
 			cout << "Enter the full name of the worker: \n\
-->";
+-> ";
 			cin >> surn;
 			cin >> n;
 			cin >> patron;
@@ -152,9 +156,16 @@ int main()
 			cout << "Enter the comparator > or <:\n\
 -> ";
 			cin >> comp;
+			if (comp != '>' && comp != '<') {
+				errors("Wrong comparator!");
+				continue;
+			}
 			cout << "Enter the year:\n\
 -> ";
 			cin >> year;
+			if (cin.fail() || year <= 0 || year > 2022) {
+				errors("Wrong year!");
+			}
 			if (comp == '>')
 				cout << "Workers older than " << year << " year" << endl;
 			else
@@ -169,6 +180,10 @@ int main()
 			cout << "Enter the comparator > or <:\n\
 -> ";
 			cin >> comp;
+			if (comp != '>' && comp != '<') {
+				errors("Wrong comparator!");
+				continue;
+			}
 			if (comp == '>')
 				cout << "Sort in ascending order:" << endl;
 			else
@@ -182,7 +197,6 @@ int main()
 			cout << "You entered the wrong number!" << endl;
 		}
 	}
-	cout << "See you later!";
 	cin.get();
 	return 0;
 }
@@ -199,6 +213,9 @@ vector<Worker> searchWorker(
 		if (w.surname == surname && w.name == name && w.patronymic == patronymic) {
 			found.push_back(w);
 		}
+	}
+	if (found.empty()) {
+		cout << "Worker not found!" << endl;
 	}
 	return found;
 }
@@ -278,8 +295,6 @@ vector<Worker> sliceByYear(const vector<Worker>& workers, char sl, int year)
 		else if (sl == '<') {
 			if (w.birth_person.year < year) found.push_back(w);
 		}
-		else
-			cout << "Something wrong!";
 	}
 	if (found.empty()) cout << "Not found this workers!";
 	return found;
