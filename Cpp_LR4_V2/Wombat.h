@@ -5,6 +5,12 @@ class Wombat
 {
 	std::string name;
 	int age;
-	int satiety;
-	int fatigue;
+	int satiety = 100;
+	int fatigue = 0;
+public:
+	Wombat(std::string n, int a)
+	{
+		name = n;
+		age = a;
+	}
 };

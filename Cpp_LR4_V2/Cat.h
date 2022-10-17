@@ -5,15 +5,12 @@ class Cat
 {
 	std::string name;
 	int age;
-	int satiety;
-	int fatigue;
+	int satiety = 100;
+	int fatigue = 0;
 public:
-	Cat(std::string n, int a, int s, int f)
+	Cat(std::string n, int a)
 	{
 		name = n;
 		age = a;
-		satiety = s;
-		fatigue = f;
 	}
-
 };

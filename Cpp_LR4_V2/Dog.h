@@ -5,6 +5,12 @@ class Dog
 {
 	std::string name;
 	int age;
-	int satiety;
-	int fatigue;
+	int satiety = 100;
+	int fatigue = 0;
+public:
+	Dog(std::string n, int a)
+	{
+		name = n;
+		age = a;
+	}
 };

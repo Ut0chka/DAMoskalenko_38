@@ -102,7 +102,14 @@ void printWorkers(vector<Worker>& workers);
 void errors(const string err);
 
 /*
-*main function for declaring variables and calling functions, as well as the implementation of the switch
+*function for displaying an action selection for the user on the console
+* 
+* @param workers vector with the received data about workers
+*/
+void selectionFunc(vector<Worker>& workers);
+
+/*
+*main function for declaring variables and calling functions
 *
 * @return returns 0 if the program completed successfully
 */
@@ -111,15 +118,8 @@ int main()
 	srand(time(0));
 
 	cout << "Enter the number of workers\n\
-->";
+-> ";
 	int N;
-	string surn;
-	string n;
-	string patron;
-	vector<Worker> found;
-	char comp;
-	int year;
-	bool flag = true;
 	cin >> N;
 	if (cin.fail() || N < 0 || N > 100) {
 		errors("Wrong number!");
@@ -127,76 +127,8 @@ int main()
 	}
 	vector<Worker> workers = fillWorkers(N);
 	printWorkers(workers);
+	selectionFunc(workers);
 
-	while (flag) {
-		cout << "Dear user, choose an action:\n \
-1. Find a worker by full name.\n \
-2. Find workers older or younger than the specified year.\n \
-3. Display worker statistics by gender.\n \
-4. Sort workers by age.\n \
-5. Exit.\n \
--> ";
-		int action;
-		cin >> action;
-		if (cin.fail()) {
-			errors("Please, enter the number!");
-		}
-		switch (action)
-		{
-		case 1:
-			cout << "Enter the full name of the worker: \n\
--> ";
-			cin >> surn;
-			cin >> n;
-			cin >> patron;
-			found = searchWorker(workers, surn, n, patron);
-			printWorkers(found);
-			break;
-		case 2:
-			cout << "Enter the comparator > or <:\n\
--> ";
-			cin >> comp;
-			if (comp != '>' && comp != '<') {
-				errors("Wrong comparator!");
-				continue;
-			}
-			cout << "Enter the year:\n\
--> ";
-			cin >> year;
-			if (cin.fail() || year <= 0 || year > 2022) {
-				errors("Wrong year!");
-			}
-			if (comp == '>')
-				cout << "Workers older than " << year << " year" << endl;
-			else
-				cout << "Workers younger than " << year << " year" << endl;
-			found = sliceByYear(workers, comp, year);
-			printWorkers(found);
-			break;
-		case 3:
-			genderStatistics(workers);
-			break;
-		case 4:
-			cout << "Enter the comparator > or <:\n\
--> ";
-			cin >> comp;
-			if (comp != '>' && comp != '<') {
-				errors("Wrong comparator!");
-				continue;
-			}
-			if (comp == '>')
-				cout << "Sort in ascending order:" << endl;
-			else
-				cout << "Sort in descending order:" << endl;
-			sortWorkers(workers, comp);
-			printWorkers(workers);
-			break;
-		case 5:
-			flag = false;
-		default:
-			cout << "You entered the wrong number!" << endl;
-		}
-	}
 	cin.get();
 	return 0;
 }
@@ -285,6 +217,88 @@ vector<Worker> fillWorkers(const int N)
 	return workers;
 }
 
+void selectionFunc(vector<Worker>& workers)
+{
+	string surn;
+	string n;
+	string patron;
+	vector<Worker> found;
+	char comp;
+	int year;
+	bool flag = true;
+	while (flag) {
+		cout << "Dear user, choose an action:\n \
+1. Find a worker by full name.\n \
+2. Find workers older or younger than the specified year.\n \
+3. Display worker statistics by gender.\n \
+4. Sort workers by age.\n \
+5. Exit.\n \
+-> ";
+		int action;
+		cin >> action;
+		if (cin.fail()) {
+			errors("Please, enter the number!");
+		}
+		switch (action)
+		{
+		case 1:
+			cout << "Enter the full name of the worker: \n\
+-> ";
+			cin >> surn;
+			cin >> n;
+			cin >> patron;
+			found = searchWorker(workers, surn, n, patron);
+			printWorkers(found);
+			break;
+		case 2:
+			cout << "Enter the comparator > or <:\n\
+-> ";
+			cin >> comp;
+			if (comp != '>' && comp != '<') {
+				errors("Wrong comparator!");
+				continue;
+			}
+			cout << "Enter the year:\n\
+-> ";
+			cin >> year;
+			if (cin.fail() || year <= 0 || year > 2022) {
+				errors("Wrong year!");
+			}
+			if (comp == '>')
+				cout << "Workers older than " << year << " year" << endl;
+			else
+				cout << "Workers younger than " << year << " year" << endl;
+			found = sliceByYear(workers, comp, year);
+			printWorkers(found);
+			break;
+		case 3:
+			genderStatistics(workers);
+			break;
+		case 4:
+			cout << "Enter the comparator > or <:\n\
+-> ";
+			cin >> comp;
+			if (comp != '>' && comp != '<') {
+				errors("Wrong comparator!");
+				continue;
+			}
+			if (comp == '>')
+				cout << "Sort in ascending order:" << endl;
+			else
+				cout << "Sort in descending order:" << endl;
+			sortWorkers(workers, comp);
+			printWorkers(workers);
+			break;
+		case 5:
+			flag = false;
+			cout << "Goodbye!" << endl;
+			break;
+		default:
+			cout << "You entered the wrong number!" << endl;
+		}
+	}
+}
+
 vector<Worker> sliceByYear(const vector<Worker>& workers, char sl, int year)
 {
 	vector<Worker> found;
@@ -310,7 +324,7 @@ void genderStatistics(const vector<Worker>& workers)
 		else
 			stat_female++;
 	}
-	cout << "Number of men: " << stat_male << "\nNumber of women: " << stat_female << endl;
+	cout << "\nNumber of men: " << stat_male << "\nNumber of women: " << stat_female << "\n" << endl;
 }
 
 bool compDates(const Birth& d1, const Birth& d2, char comp) 
