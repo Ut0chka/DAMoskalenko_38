@@ -112,16 +112,13 @@ public:
 						//<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
 					flag_s = true;
 				}
-				else 
-				{
-					if (animal.getSatiety() == 100 || animal.getFatigue() == 0)
+				else if (animal.getSatiety() == 100 || animal.getFatigue() == 0)
 					{
 						flag_e = flag_s = false;
 					}
 					//std::cout << animal.getType() << " "
 						//<< animal.getName() << " is well-food and restless! fat:" 
 						//<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
-				}
 				if (flag_e)
 				{
 					animal.eatingRoom();

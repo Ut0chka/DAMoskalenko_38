@@ -35,30 +35,26 @@ public:
 	}
 	void decreaseSatiety(float visit)
 	{
+		_satiety -= (dec_sat * visit);
 		if (_satiety < 0)
 			_satiety = 0;
-		else
-			_satiety -= (dec_sat * visit);
 	}
 	void increaseFatigue(float visit)
 	{
+		_fatigue += (inc_fat * visit);
 		if (_fatigue > 100)
 			_fatigue = 100;
-		else
-			_fatigue += (inc_fat * visit);
 	}
 	void eatingRoom()
 	{
+		_satiety += eating;
 		if (_satiety > 100)
 			_satiety = 100;
-		else
-			_satiety += eating;
 	}
 	void restRoom()
 	{
+		_fatigue -= rest;
 		if (_fatigue < 0)
 			_fatigue = 0;
-		else
-			_fatigue -= rest;
 	}
 };
