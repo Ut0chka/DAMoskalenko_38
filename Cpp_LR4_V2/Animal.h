@@ -9,11 +9,22 @@ enum Types
 	Cat_t, Dog_t, Wombat_t
 };
 
-std::vector<std::string> names = {"Barsik", "Tolik", "Petya", "Nix", "Pupa", "Terry", "Lolik", "Rouse", "Fenix"};
 
 class Animal
 {
+	bool _flag_e;
+	bool _flag_s;
 public:
 	void* animal = nullptr;
 	Types type;
+
+	std::string getType();
+	std::string getName();
+	int getAge();
+	int getSatiety();
+	int getFatigue();
+	void decreaseSatiety(float);
+	void increaseFatigue(float);
+	void eatingRoom();
+	void restRoom();
 };
