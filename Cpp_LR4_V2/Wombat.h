@@ -8,8 +8,8 @@ class Wombat
 	int _satiety = 100;
 	int _fatigue = 0;
 	int dec_sat = 30;
-	int inc_fat = 30;
-	int eating = 20;
+	int inc_fat = 20;
+	int eating = 30;
 	int rest = 20;
 public:
 	Wombat(std::string n, int a)

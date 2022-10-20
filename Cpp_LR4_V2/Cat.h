@@ -8,9 +8,9 @@ class Cat
 	int _satiety = 100;
 	int _fatigue = 0;
 	int dec_sat = 50;
-	int inc_fat = 50;
-	int rest = 20;
-	int eating = 30;
+	int inc_fat = 40;
+	int rest = 40;
+	int eating = 50;
 public:
 	Cat(std::string n, int a)
 	{

@@ -100,41 +100,49 @@ public:
 			std::printf("%.2f visition\n", visitors);
 			for (Animal& animal : animals) {
 				if (animal.getSatiety() < 30) {
-					//std::cout << animal.getType() << " "
-						//<< animal.getName() << " is hungry! fat: " << animal.getFatigue()
-						//<< " sat: "
-						//<< animal.getSatiety() << std::endl;
+					std::cout << animal.getType() << " "
+						<< animal.getName() << " is hungry! fat: " << animal.getFatigue()
+						<< " sat: "
+						<< animal.getSatiety() << std::endl;
 					flag_e = true;
+					animal.eatingRoom();
+					break;
 				}
 				else if (animal.getFatigue() > 80) {
-					//std::cout << animal.getType() << " "
-						//<< animal.getName() << " is tired! fat: " 
-						//<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
+					std::cout << animal.getType() << " "
+						<< animal.getName() << " is tired! fat: "
+						<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
 					flag_s = true;
+					animal.restRoom();
+					break;
 				}
 				else if (animal.getSatiety() == 100 || animal.getFatigue() == 0)
-					{
-						flag_e = flag_s = false;
-					}
-					//std::cout << animal.getType() << " "
-						//<< animal.getName() << " is well-food and restless! fat:" 
-						//<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
+				{
+					flag_e = flag_s = false;
+				}
 				if (flag_e)
 				{
 					animal.eatingRoom();
+					std::cout << animal.getType() << " "
+						<< animal.getName() << " is eating! fat: " << animal.getFatigue()
+						<< " sat: "
+						<< animal.getSatiety() << std::endl;
 				}
-				if (flag_s)
+				else if (flag_s)
 				{
 					animal.restRoom();
+					std::cout << animal.getType() << " "
+						<< animal.getName() << " is sleeping! fat: "
+						<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
 				}
-				if (!flag_e && !flag_s)
+				else if (!flag_e && !flag_s)
 				{
+					std::cout << animal.getType() << " "
+						<< animal.getName() << " is well-food and restless! fat:"
+						<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
 					animal.decreaseSatiety(visitors);
 					animal.increaseFatigue(visitors);
 				}
-				std::cout << animal.getType() << " "
-					<< animal.getName() << " fat:"
-					<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
 			}
 		}
 	}

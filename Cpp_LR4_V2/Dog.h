@@ -8,8 +8,8 @@ class Dog
 	int _satiety = 100;
 	int _fatigue = 0;
 	int dec_sat = 40;
-	int inc_fat = 40;
-	int eating = 30;
+	int inc_fat = 30;
+	int eating = 40;
 	int rest = 30;
 public:
 	Dog(std::string n, int a)
