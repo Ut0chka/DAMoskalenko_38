@@ -12,11 +12,12 @@ enum Types
 
 class Animal
 {
-	bool _flag_e;
-	bool _flag_s;
+	
 public:
 	void* animal = nullptr;
 	Types type;
+	bool flag_e = false;
+	bool flag_s = false;
 
 	std::string getType();
 	std::string getName();

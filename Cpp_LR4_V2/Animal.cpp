@@ -1,6 +1,5 @@
 #include "Animal.h"
 
-bool _flag_e = true;
 std::string Animal::getType()
 {
 	switch (type)

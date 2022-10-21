@@ -91,8 +91,6 @@ public:
 	}
 	void liveAnimal()
 	{
-		bool flag_e = false;
-		bool flag_s = false;
 		for (int i = 0; i < 12; i++)
 		{
 			float visitors = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -104,23 +102,19 @@ public:
 						<< animal.getName() << " is hungry! fat: " << animal.getFatigue()
 						<< " sat: "
 						<< animal.getSatiety() << std::endl;
-					flag_e = true;
-					animal.eatingRoom();
-					break;
+					animal.flag_e = true;
 				}
 				else if (animal.getFatigue() > 80) {
 					std::cout << animal.getType() << " "
 						<< animal.getName() << " is tired! fat: "
 						<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
-					flag_s = true;
-					animal.restRoom();
-					break;
+					animal.flag_s = true;
 				}
 				else if (animal.getSatiety() == 100 || animal.getFatigue() == 0)
 				{
-					flag_e = flag_s = false;
+					animal.flag_e = animal.flag_s = false;
 				}
-				if (flag_e)
+				if (animal.flag_e)
 				{
 					animal.eatingRoom();
 					std::cout << animal.getType() << " "
@@ -128,14 +122,14 @@ public:
 						<< " sat: "
 						<< animal.getSatiety() << std::endl;
 				}
-				else if (flag_s)
+				else if (animal.flag_s)
 				{
 					animal.restRoom();
 					std::cout << animal.getType() << " "
 						<< animal.getName() << " is sleeping! fat: "
 						<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
 				}
-				else if (!flag_e && !flag_s)
+				else if (!animal.flag_e && !animal.flag_s)
 				{
 					std::cout << animal.getType() << " "
 						<< animal.getName() << " is well-food and restless! fat:"
