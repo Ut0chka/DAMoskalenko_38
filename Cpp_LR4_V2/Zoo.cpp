@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "Zoo.h"
 
 void Zoo::fillZoo(const int N)
@@ -35,7 +36,7 @@ void Zoo::addAnimal()
 	std::string add_type = " ";
 	std::string add_name = " ";
 	int add_age = 0;
-	std::cout << "Input type of animal:\n\
+	std::cout << "Input type of animal (Cat, Dog or Wombat):\n\
 -> ";
 	std::cin >> add_type;
 	if (add_type != "Cat" && add_type != "Dog" && add_type != "Wombat") {
@@ -45,14 +46,14 @@ void Zoo::addAnimal()
 	std::cout << "Input name of animal:\n\
 -> ";
 	std::cin >> add_name;
-	std::cout << "Input age of animal:\n\
+	std::cout << "Input age of animal (0-25):\n\
 -> ";
 	std::cin >> add_age;
 	if (std::cin.fail() || add_age < 0 || add_age > 25) {
-		errors("A?");
+		errors("Wrong age!");
 		return;
 	}
-	if (add_type == "Cat")
+	if (add_type == "Cat") 
 	{
 		animal.type = Types::Cat_t;
 		animal.animal = (void*)(new Cat(add_name, add_age));
@@ -77,8 +78,8 @@ void Zoo::printZoo()
 		std::cout << "\nType: " << a.getType()
 			<< "\nName: " << a.getName()
 			<< "\nAge: " << a.getAge()
-			<< "\nSatiety: " << a.getSatiety()
-			<< "\nFatigue: " << a.getFatigue()
+			<< std::setprecision(4) << "\nSatiety: " << a.getSatiety()
+			<< std::setprecision(4) << "\nFatigue: " << a.getFatigue()
 			<< std::endl;
 	}
 }
@@ -88,46 +89,45 @@ void Zoo::liveAnimal()
 	for (int i = 0; i < 12; i++)
 	{
 		float visitors = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		std::cout << i + 1 << " hours have passed" << std::endl;
+		std::cout << "\n" << i + 1 << " hours have passed" << std::endl;
 		std::printf("%.2f visition\n", visitors);
 		for (Animal& animal : animals) {
-			if (animal.getSatiety() < 30) {
-				std::cout << animal.getType() << " "
-					<< animal.getName() << " is hungry! fat: " << animal.getFatigue()
-					<< " sat: "
-					<< animal.getSatiety() << std::endl;
+			if (animal.getSatiety() < 30.0) {
+				std::cout << animal.getType() << " " << animal.getName() 
+					<< " is hungry! fat: " << std::setprecision(4) << animal.getFatigue()
+					<< " sat: " << std::setprecision(4) << animal.getSatiety() << std::endl;
 				animal.flag_e = true;
 			}
-			else if (animal.getFatigue() > 80) {
-				std::cout << animal.getType() << " "
-					<< animal.getName() << " is tired! fat: "
-					<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
+			else if (animal.getFatigue() > 80.0) {
+				std::cout << animal.getType() << " " << animal.getName() 
+					<< " is tired! fat: " << std::setprecision(4) << animal.getFatigue() 
+					<< " sat: " << std::setprecision(4) << animal.getSatiety() << std::endl;
 				animal.flag_s = true;
 			}
-			else if (animal.getSatiety() == 100 || animal.getFatigue() == 0)
+			else if (animal.getSatiety() == 100.0 || animal.getFatigue() == 0.0)
 			{
 				animal.flag_e = animal.flag_s = false;
 			}
 			if (animal.flag_e)
 			{
 				animal.eatingRoom();
-				std::cout << animal.getType() << " "
-					<< animal.getName() << " is eating! fat: " << animal.getFatigue()
-					<< " sat: "
-					<< animal.getSatiety() << std::endl;
+				std::cout << animal.getType() << " " << animal.getName() 
+					<< " is eating! fat: " << std::setprecision(4) << animal.getFatigue()
+					<< " sat: " << std::setprecision(4) << animal.getSatiety() << std::endl;
 			}
 			else if (animal.flag_s)
 			{
 				animal.restRoom();
-				std::cout << animal.getType() << " "
-					<< animal.getName() << " is sleeping! fat: "
-					<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
+				std::cout << animal.getType() << " " << animal.getName() 
+					<< " is sleeping! fat: " << std::setprecision(4) << animal.getFatigue() 
+					<< " sat: " << std::setprecision(4) << animal.getSatiety() << std::endl;
 			}
 			else if (!animal.flag_e && !animal.flag_s)
 			{
 				std::cout << animal.getType() << " "
 					<< animal.getName() << " is well-food and restless! fat:"
-					<< animal.getFatigue() << " sat: " << animal.getSatiety() << std::endl;
+					<< std::setprecision(4) << animal.getFatigue() 
+					<< " sat: " << std::setprecision(4) << animal.getSatiety() << std::endl;
 				animal.decreaseSatiety(visitors);
 				animal.increaseFatigue(visitors);
 			}

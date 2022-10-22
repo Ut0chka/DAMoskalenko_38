@@ -37,7 +37,7 @@ int Animal::getAge()
 		return ((Wombat*)animal)->getAge();
 	}
 }
-int Animal::getSatiety()
+float Animal::getSatiety()
 {
 	switch (type)
 	{
@@ -50,7 +50,7 @@ int Animal::getSatiety()
 	}
 }
 
-int Animal::getFatigue()
+float Animal::getFatigue()
 {
 	switch (type)
 	{

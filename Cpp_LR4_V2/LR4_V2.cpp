@@ -6,15 +6,24 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+/*
+*main function for declaring variables and calling functions
+*
+* @return returns 0 if the program completed successfully
+*/
 int main()
 {
 	srand(time(0));
 	int N;
 	bool flag = true;
-	cout << "Input numbers of animals:\n\
+	Zoo zoo;
+	cout << "Input numbers of animals (1-25):\n\
 -> ";
 	cin >> N;
-	Zoo zoo;
+	if (std::cin.fail() || N < 1 || N > 25) {
+		zoo.errors("Wrong age!");
+		return;
+	}
 	zoo.fillZoo(N);
 	zoo.printZoo();
 	while (flag)
