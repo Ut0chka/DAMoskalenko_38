@@ -5,8 +5,8 @@ class Wombat
 {
 	std::string _name;
 	int _age;
-	float _satiety = 100;
-	float _fatigue = 0;
+	float _satiety = static_cast <float> (rand()) / static_cast <float> (RAND_MAX / 100);
+	float _fatigue = static_cast <float> (rand()) / static_cast <float> (RAND_MAX / 100);
 	float dec_sat = 30;
 	float inc_fat = 20;
 	float eating = 30;

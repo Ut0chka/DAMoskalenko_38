@@ -5,8 +5,8 @@ class Cat
 {
 	std::string _name;
 	int _age;
-	float _satiety = 100.0;
-	float _fatigue = 0.0;
+	float _satiety = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/100);
+	float _fatigue = static_cast <float> (rand()) / static_cast <float> (RAND_MAX / 100);
 	float dec_sat = 50.0;
 	float inc_fat = 40.0;
 	float rest = 40.0;

@@ -9,6 +9,7 @@ using std::endl;
 /*
 *main function for declaring variables and calling functions
 *
+* @return returns 1 if fail
 * @return returns 0 if the program completed successfully
 */
 int main()
@@ -21,8 +22,8 @@ int main()
 -> ";
 	cin >> N;
 	if (std::cin.fail() || N < 1 || N > 25) {
-		zoo.errors("Wrong age!");
-		return;
+		zoo.errors("Wrong numbers of animals!");
+		return 1;
 	}
 	zoo.fillZoo(N);
 	zoo.printZoo();
